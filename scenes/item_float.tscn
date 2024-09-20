@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://5loif7g8d5kh"]
+
+[ext_resource type="Script" path="res://scripts/item_float.gd" id="1_38moa"]
+[ext_resource type="Texture2D" uid="uid://duv6xl827jaic" path="res://assets/Itens.png" id="1_qn6ec"]
+[ext_resource type="Texture2D" uid="uid://b7dx4oxghhcog" path="res://assets/ItensBrilha.png" id="3_5sjia"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xd0db"]
+atlas = ExtResource("3_5sjia")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a5xac"]
+atlas = ExtResource("1_qn6ec")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kltj3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xd0db")
+}],
+"loop": false,
+"name": &"Boia",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5xac")
+}],
+"loop": false,
+"name": &"Brilha",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6wh5r"]
+radius = 12.0
+
+[node name="ItemFloat" type="Area2D"]
+script = ExtResource("1_38moa")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_kltj3")
+animation = &"Boia"
+autoplay = "Boia"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6wh5r")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

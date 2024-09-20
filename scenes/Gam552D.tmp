@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuib1edcv3mjs"]
+
+[ext_resource type="Texture2D" uid="uid://c5orrnnwip6hs" path="res://Lethal Ocean Sprites/fundo.png" id="1_fgpob"]
+[ext_resource type="PackedScene" uid="uid://cb747ujkaerl0" path="res://Cenas/player.tscn" id="2_fr5vt"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Fundo" type="Sprite2D" parent="."]
+position = Vector2(477, 240)
+texture = ExtResource("1_fgpob")
+
+[node name="Player" parent="." instance=ExtResource("2_fr5vt")]
+position = Vector2(501, 272)
+animation = &"Meio Agua"
+frame_progress = 0.446665

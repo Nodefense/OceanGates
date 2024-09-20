@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://cuib1edcv3mjs"]
+
+[ext_resource type="Texture2D" uid="uid://b510s85tdjiw2" path="res://Lethal Ocean Sprites/fundo.png" id="1_fgpob"]
+[ext_resource type="PackedScene" uid="uid://cb747ujkaerl0" path="res://Cenas/player.tscn" id="2_fr5vt"]
+[ext_resource type="PackedScene" uid="uid://dl20raqtq1enh" path="res://Cenas/Barco.tscn" id="3_dsqts"]
+[ext_resource type="PackedScene" uid="uid://buu4enj3rvrad" path="res://Cenas/etc.tscn" id="5_ap8na"]
+[ext_resource type="PackedScene" uid="uid://cyubnh2oi7ub2" path="res://Cenas/parede.tscn" id="5_w34p6"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Fundo" type="Sprite2D" parent="."]
+z_index = -10
+position = Vector2(477, 240)
+texture = ExtResource("1_fgpob")
+
+[node name="Etc" parent="." instance=ExtResource("5_ap8na")]
+z_index = 2
+animation = &"fora"
+
+[node name="Area2D" parent="." instance=ExtResource("3_dsqts")]
+z_index = -1
+position = Vector2(387, 271)
+
+[node name="Parede" parent="." instance=ExtResource("5_w34p6")]
+z_index = 1
+position = Vector2(385.5, 254)
+
+[node name="Player" parent="." instance=ExtResource("2_fr5vt")]
+z_index = 1
+position = Vector2(455, 290)
+rotation = -1.5708
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+z_index = -1
+position = Vector2(-5.99997, -6)
+rotation = 1.5708
+ignore_rotation = false
+zoom = Vector2(5, 5)
+position_smoothing_enabled = true
+rotation_smoothing_speed = 100.0

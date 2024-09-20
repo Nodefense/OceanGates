@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://cuib1edcv3mjs"]
+
+[ext_resource type="PackedScene" uid="uid://buu4enj3rvrad" path="res://scenes/etc.tscn" id="1_8g8tj"]
+[ext_resource type="PackedScene" uid="uid://dl20raqtq1enh" path="res://scenes/ship.tscn" id="2_8aftj"]
+[ext_resource type="PackedScene" uid="uid://cyubnh2oi7ub2" path="res://scenes/wall.tscn" id="3_ftr1t"]
+[ext_resource type="PackedScene" uid="uid://cb747ujkaerl0" path="res://scenes/player.tscn" id="4_shyd4"]
+[ext_resource type="PackedScene" uid="uid://5loif7g8d5kh" path="res://scenes/item_float.tscn" id="5_chpqh"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Etc" parent="." instance=ExtResource("1_8g8tj")]
+z_index = 2
+
+[node name="Area2D" parent="." instance=ExtResource("2_8aftj")]
+z_index = -1
+position = Vector2(387, 271)
+
+[node name="Wall" parent="." instance=ExtResource("3_ftr1t")]
+z_index = 1
+position = Vector2(385.5, 254)
+
+[node name="Player" parent="." instance=ExtResource("4_shyd4")]
+position = Vector2(455, 290)
+rotation = -1.5708
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+z_index = -1
+position = Vector2(-2.00006, -1)
+rotation = 1.5708
+ignore_rotation = false
+zoom = Vector2(3, 3)
+rotation_smoothing_speed = 100.0
+
+[node name="ItemFloat" parent="." instance=ExtResource("5_chpqh")]
+z_index = 1
+position = Vector2(237, 312)

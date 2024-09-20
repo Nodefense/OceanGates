@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://dl20raqtq1enh"]
+
+[ext_resource type="Texture2D" uid="uid://v4vtfluwym4c" path="res://assets/BarquinhosOFilme.png" id="1_diwxr"]
+[ext_resource type="Script" path="res://scripts/ship.gd" id="1_hxuhf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vh8m0"]
+atlas = ExtResource("1_diwxr")
+region = Rect2(112, 0, 112, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j1v5i"]
+atlas = ExtResource("1_diwxr")
+region = Rect2(0, 0, 112, 160)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1brg7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vh8m0")
+}],
+"loop": false,
+"name": &"Dentro",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j1v5i")
+}],
+"loop": false,
+"name": &"Fora",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ekrar"]
+size = Vector2(86, 91)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mo50u"]
+size = Vector2(92, 116)
+
+[node name="Ship" type="Area2D"]
+script = ExtResource("1_hxuhf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_1brg7")
+animation = &"Dentro"
+autoplay = "Fora"
+
+[node name="Floor" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2(0, -16.5)
+shape = SubResource("RectangleShape2D_ekrar")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("RectangleShape2D_mo50u")
+
+[connection signal="body_entered" from="Floor" to="." method="_on_chão_body_entered"]
+[connection signal="body_exited" from="Floor" to="." method="_on_chão_body_exited"]
