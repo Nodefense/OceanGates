@@ -37,11 +37,14 @@ size = Vector2(86, 91)
 size = Vector2(92, 116)
 
 [node name="Ship" type="Area2D"]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_hxuhf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_as_relative = false
 sprite_frames = SubResource("SpriteFrames_1brg7")
-animation = &"Dentro"
+animation = &"Fora"
 autoplay = "Fora"
 
 [node name="Floor" type="Area2D" parent="."]

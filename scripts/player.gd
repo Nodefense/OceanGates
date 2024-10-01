@@ -8,6 +8,9 @@ var rotacao_velocidade = 2.25
 var direcao = Vector2.ZERO
 var pe = false  
 var pegável = false
+@onready var water = $"../Water"
+@onready var surface = $"../Surface"
+
 
 func _process(delta):  
 	agua()
@@ -19,16 +22,36 @@ func movimento(delta):
 	direcao = Vector2.ZERO
 	if Input.is_action_pressed("Agarrar"):
 		fechada = true
+		
+	if Input.is_action_just_pressed("Afundar"):
+		if surface.enabled:
+			surface.enabled = false
+		elif not surface.enabled:
+			surface.enabled = true
+		if collision_mask == 2:
+			collision_mask = 1
+		elif collision_mask == 1:
+			collision_mask = 2
+		if z_index == 1:
+			z_index = -1; print(z_index)
+		elif z_index == -1:
+			z_index = 1; print(z_index)
+		
 	if Input.is_action_just_released("Agarrar"):
 			fechada = false
+			
 	if Input.is_action_pressed("Esquerda"):
-		rotation -= rotacao_velocidade * delta 
+		rotation -= rotacao_velocidade * delta
+		
 	elif Input.is_action_pressed("Direita"):
-		rotation += rotacao_velocidade * delta 
+		rotation += rotacao_velocidade * delta
+		
 	if Input.is_action_pressed("Frente"):
-		direcao = Vector2.RIGHT.rotated(rotation)  
+		direcao = Vector2.RIGHT.rotated(rotation)
+		 
 	elif Input.is_action_pressed("Atras"):
 		direcao = Vector2.LEFT.rotated(rotation)
+		
 	if Input.is_action_pressed("Frente") or Input.is_action_pressed("Atras"):
 		velocidade = 70
 	else:
