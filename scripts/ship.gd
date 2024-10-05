@@ -18,18 +18,20 @@ If not, see <https://www.gnu.org/licenses/>.
 '''
 
 extends Area2D
-@onready var animation = $AnimatedSprite2D
-@onready var ship_interior = $"../ShipInterior"
+
+
+@onready var animation: AnimatedSprite2D = $AnimatedSprite2D
+@onready var ship_interior: AnimatedSprite2D = $"../ShipInterior"
+
 
 func _on_floor_body_entered(body: Node2D) -> void:
 	if body.has_method("reemerge") and body.collision_mask == 2:
 		body.reemerge()
 		animation.play("inside")
 		ship_interior.play("inside")
-
-
+		
 func _on_floor_body_exited(body: Node2D) -> void:
-	if body.has_method("reemerge"):
+	if body.has_method("reemerge") and body.collision_mask == 2:
 		body.reemerge()
 		animation.play("outside")
 		ship_interior.play("outside")

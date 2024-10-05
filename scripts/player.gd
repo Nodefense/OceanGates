@@ -19,25 +19,26 @@ If not, see <https://www.gnu.org/licenses/>.
 
 extends CharacterBody2D
 
-@onready var animation = $AnimatedSprite2D
+@onready var animation: AnimatedSprite2D = $AnimatedSprite2D
+@onready var water: TileMapLayer = $"../Water"
+@onready var surface: TileMapLayer = $"../Surface"
 
-var closed = false
-var speed = 70
-var rotation_speed = 2.25
-var direction = Vector2.ZERO
-var water_reach = false  
-var grabbable = false
-@onready var water = $"../Water"
-@onready var surface = $"../Surface"
+var closed: bool = false
+var speed: int = 70
+var rotation_speed: float = 2.25
+var direction: Vector2 = Vector2.ZERO
+var water_reach: bool = false  
+var grabbable: bool = false
 
 
-func _process(delta):  
+
+func _process(delta: float) -> void:  
 	water_function()
 	movimento(delta)  
 	velocity = direction * speed
 	move_and_slide()
 
-func movimento(delta):
+func movimento(delta: float) -> void:
 	direction = Vector2.ZERO
 	if Input.is_action_pressed("grab"):
 		closed = true
@@ -47,10 +48,12 @@ func movimento(delta):
 			surface.enabled = false
 		elif not surface.enabled:
 			surface.enabled = true
+			
 		if collision_mask == 2:
 			collision_mask = 1
 		elif collision_mask == 1:
 			collision_mask = 2
+			
 		if z_index == 1:
 			z_index = -1; print(z_index)
 		elif z_index == -1:
@@ -80,13 +83,13 @@ func movimento(delta):
 		else:
 			animation.play("water_idle")
 
-func reemerge():
+func reemerge() -> void:
 	if water_reach:
 		water_reach = false
 	else:
 		water_reach = true
 
-func water_function():
+func water_function() -> void:
 	if not water_reach:
 		speed = 70
 		animation.play("water_moving")
