@@ -1,5 +1,9 @@
 '''
+<<<<<<< HEAD
 Copyright (C) 2024 Gabriel Dill
+=======
+Copyright (C) 2024 Leonardo Bandeira, Gabriel Dill
+>>>>>>> be27aa32bd59587a253c8e06a3858a86c49cc0ac
 
 This file is part of OceanGates.
 
