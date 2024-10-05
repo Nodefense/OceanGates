@@ -29,6 +29,7 @@ var rotation_speed: float = 2.25
 var direction: Vector2 = Vector2.ZERO
 var water_reach: bool = false  
 var grabbable: bool = false
+var submergeable: bool = true
 
 
 
@@ -43,7 +44,7 @@ func movimento(delta: float) -> void:
 	if Input.is_action_pressed("grab"):
 		closed = true
 		
-	if Input.is_action_just_pressed("submerge"):
+	if Input.is_action_just_pressed("submerge") and submergeable:
 		if surface.enabled:
 			surface.enabled = false
 		elif not surface.enabled:

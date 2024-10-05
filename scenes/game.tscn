@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=4 uid="uid://cuib1edcv3mjs"]
+[gd_scene load_steps=10 format=4 uid="uid://cuib1edcv3mjs"]
 
 [ext_resource type="PackedScene" uid="uid://buu4enj3rvrad" path="res://scenes/ship_interior.tscn" id="1_8g8tj"]
 [ext_resource type="PackedScene" uid="uid://dl20raqtq1enh" path="res://scenes/ship.tscn" id="2_8aftj"]
-[ext_resource type="PackedScene" uid="uid://cyubnh2oi7ub2" path="res://scenes/wall.tscn" id="3_ftr1t"]
 [ext_resource type="PackedScene" uid="uid://cb747ujkaerl0" path="res://scenes/player.tscn" id="4_shyd4"]
 [ext_resource type="PackedScene" uid="uid://5loif7g8d5kh" path="res://scenes/item_float.tscn" id="5_chpqh"]
 [ext_resource type="Texture2D" uid="uid://bggc1e0srgdd8" path="res://assets/Sprute.png" id="6_5hbug"]
@@ -233,15 +232,10 @@ sources/0 = SubResource("TileSetAtlasSource_sq1ko")
 [node name="Node2D" type="Node2D"]
 
 [node name="ShipInterior" parent="." instance=ExtResource("1_8g8tj")]
-z_index = 2
+z_index = 5
 
 [node name="Ship" parent="." instance=ExtResource("2_8aftj")]
-z_index = -1
 position = Vector2(387, 271)
-
-[node name="Wall" parent="." instance=ExtResource("3_ftr1t")]
-z_index = 1
-position = Vector2(385.5, 254)
 
 [node name="Player" parent="." instance=ExtResource("4_shyd4")]
 position = Vector2(455, 290)

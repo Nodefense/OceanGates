@@ -25,13 +25,15 @@ extends Area2D
 
 
 func _on_floor_body_entered(body: Node2D) -> void:
-	if body.has_method("reemerge") and body.collision_mask == 2:
+	if body.has_method("reemerge") and body.collision_mask == 2 and body.submergeable:
 		body.reemerge()
 		animation.play("inside")
 		ship_interior.play("inside")
+		body.submergeable = false
 		
 func _on_floor_body_exited(body: Node2D) -> void:
-	if body.has_method("reemerge") and body.collision_mask == 2:
+	if body.has_method("reemerge") and body.collision_mask == 2 and not body.submergeable:
 		body.reemerge()
 		animation.play("outside")
 		ship_interior.play("outside")
+		body.submergeable = true

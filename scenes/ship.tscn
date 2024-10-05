@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dl20raqtq1enh"]
+[gd_scene load_steps=9 format=3 uid="uid://dl20raqtq1enh"]
 
 [ext_resource type="Texture2D" uid="uid://v4vtfluwym4c" path="res://assets/BarquinhosOFilme.png" id="1_diwxr"]
 [ext_resource type="Script" path="res://scripts/ship.gd" id="1_hxuhf"]
@@ -36,6 +36,10 @@ size = Vector2(86, 91)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mo50u"]
 size = Vector2(92, 116)
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_bpnr6"]
+a = Vector2(44, -63)
+b = Vector2(24, -27)
+
 [node name="Ship" type="Area2D"]
 collision_layer = 3
 collision_mask = 3
@@ -50,6 +54,7 @@ autoplay = "outside"
 
 [node name="Floor" type="Area2D" parent="."]
 z_index = 1
+collision_layer = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
 position = Vector2(0, -16.5)
@@ -58,6 +63,23 @@ shape = SubResource("RectangleShape2D_ekrar")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -10)
 shape = SubResource("RectangleShape2D_mo50u")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+shape = SubResource("SegmentShape2D_bpnr6")
+
+[node name="WaterCollision" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WaterCollision"]
+polygon = PackedVector2Array(-46, 48, -46, -68, -43, -71, -41, -72, -38, -73, -34, -74, -30, -75, -24, -76, -14, -77, 14, -77, 24, -76, 30, -75, 34, -74, 38, -73, 41, -72, 43, -71, 46, -68, 46, 48, 45, 52, 44, 55, 43, 57, 41, 60, 33, 68, 30, 70, 27, 72, 25, 73, 20, 75, 17, 76, 13, 77, 7, 78, -7, 78, -13, 77, -17, 76, -20, 75, -25, 73, -27, 72, -30, 70, -33, 68, -41, 60, -43, 57, -44, 55, -45, 52)
+
+[node name="SurfaceCollision" type="StaticBody2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SurfaceCollision"]
+polygon = PackedVector2Array(-14, -77, 14, -77, 24, -76, 30, -75, 34, -74, 38, -73, 41, -72, 43, -71, 46, -68, 46, -61, 43, -61, 43, -66, 42, -67, 40, -68, 37, -69, 29, -71, 23, -72, 13, -73, 12, -74, -12, -74, -13, -73, -23, -72, -29, -71, -37, -69, -40, -68, -42, -67, -43, -66, -43, -61, -46, -61, -46, -68, -43, -71, -41, -72, -38, -73, -34, -74, -30, -75, -24, -76)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="SurfaceCollision"]
+polygon = PackedVector2Array(-46, -25, -43, -25, -43, 29, -43, 40, -30, 40, -23, 42, 23, 42, 30, 40, 30, 40, 43, 40, 43, -25, 46, -25, 46, 48, 45, 52, 44, 55, 43, 57, 41, 60, 40, 61, 33, 68, 30, 70, 27, 72, 25, 73, 20, 75, 13, 77, 7, 78, -7, 78, -13, 77, -17, 76, -20, 75, -25, 73, -27, 72, -30, 70, -33, 68, -41, 60, -43, 57, -44, 55, -45, 52, -46, 48)
 
 [connection signal="body_entered" from="Floor" to="." method="_on_floor_body_entered"]
 [connection signal="body_exited" from="Floor" to="." method="_on_floor_body_exited"]
