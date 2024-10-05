@@ -1,5 +1,5 @@
 '''
-Copyright (C) 2024 Leonardo Bandeira, Gabriel Dill
+Copyright (C) 2024 Gabriel Dill
 
 This file is part of OceanGates.
 
@@ -19,30 +19,30 @@ If not, see <https://www.gnu.org/licenses/>.
 
 extends CharacterBody2D
 
-@onready var animacao = $AnimatedSprite2D
+@onready var animation = $AnimatedSprite2D
 
-var fechada = false
-var velocidade = 70
-var rotacao_velocidade = 2.25
-var direcao = Vector2.ZERO
-var pe = false  
-var pegável = false
+var closed = false
+var speed = 70
+var rotation_speed = 2.25
+var direction = Vector2.ZERO
+var water_reach = false  
+var grabbable = false
 @onready var water = $"../Water"
 @onready var surface = $"../Surface"
 
 
 func _process(delta):  
-	agua()
+	water_function()
 	movimento(delta)  
-	velocity = direcao * velocidade
+	velocity = direction * speed
 	move_and_slide()
 
 func movimento(delta):
-	direcao = Vector2.ZERO
-	if Input.is_action_pressed("Agarrar"):
-		fechada = true
+	direction = Vector2.ZERO
+	if Input.is_action_pressed("grab"):
+		closed = true
 		
-	if Input.is_action_just_pressed("Afundar"):
+	if Input.is_action_just_pressed("submerge"):
 		if surface.enabled:
 			surface.enabled = false
 		elif not surface.enabled:
@@ -56,50 +56,50 @@ func movimento(delta):
 		elif z_index == -1:
 			z_index = 1; print(z_index)
 		
-	if Input.is_action_just_released("Agarrar"):
-			fechada = false
+	if Input.is_action_just_released("grab"):
+		closed = false
 			
-	if Input.is_action_pressed("Esquerda"):
-		rotation -= rotacao_velocidade * delta
+	if Input.is_action_pressed("left"):
+		rotation -= rotation_speed * delta
 		
-	elif Input.is_action_pressed("Direita"):
-		rotation += rotacao_velocidade * delta
+	elif Input.is_action_pressed("right"):
+		rotation += rotation_speed * delta
 		
-	if Input.is_action_pressed("Frente"):
-		direcao = Vector2.RIGHT.rotated(rotation)
+	if Input.is_action_pressed("front"):
+		direction = Vector2.RIGHT.rotated(rotation)
 		 
-	elif Input.is_action_pressed("Atras"):
-		direcao = Vector2.LEFT.rotated(rotation)
+	elif Input.is_action_pressed("back"):
+		direction = Vector2.LEFT.rotated(rotation)
 		
-	if Input.is_action_pressed("Frente") or Input.is_action_pressed("Atras"):
-		velocidade = 70
+	if Input.is_action_pressed("front") or Input.is_action_pressed("back"):
+		speed = 70
 	else:
-		direcao = Vector2.ZERO
-		if pe:
-			animacao.play("PéParado")
+		direction = Vector2.ZERO
+		if water_reach:
+			animation.play("surface_idle")
 		else:
-			animacao.play("MeioParado")
+			animation.play("water_idle")
 
-func sobe():
-	if pe:
-		pe = false
+func reemerge():
+	if water_reach:
+		water_reach = false
 	else:
-		pe = true
+		water_reach = true
 
-func agua():
-	if not pe:
-		velocidade = 70
-		animacao.play("Meio")
+func water_function():
+	if not water_reach:
+		speed = 70
+		animation.play("water_moving")
 	else:
-		velocidade = 90
-		animacao.play("Pé")
+		speed = 90
+		animation.play("surface_moving")
 
-func _on_alcança_area_entered(area):
-	if area.has_method("brilhar"):
-		pegável = true
-		area.brilhar()
+func _on_range_area_entered(area: Area2D) -> void:
+	if area.has_method("glow"):
+		grabbable = true
+		area.glow()
 
-func _on_alcança_area_exited(area):
-	if area.has_method("nbrilhar"):
-		pegável = false
-		area.nbrilhar()
+func _on_range_area_exited(area: Area2D) -> void:
+	if area.has_method("gloom"):
+		grabbable = false
+		area.gloom()

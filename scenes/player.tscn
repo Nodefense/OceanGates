@@ -11,17 +11,9 @@ region = Rect2(32, 64, 32, 64)
 atlas = ExtResource("1_1s7hx")
 region = Rect2(64, 64, 32, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6jnfr"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_s8llt"]
 atlas = ExtResource("1_1s7hx")
-region = Rect2(32, 0, 32, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6ivdv"]
-atlas = ExtResource("1_1s7hx")
-region = Rect2(64, 0, 32, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wro54"]
-atlas = ExtResource("1_1s7hx")
-region = Rect2(0, 0, 32, 64)
+region = Rect2(0, 128, 32, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cs6te"]
 atlas = ExtResource("1_1s7hx")
@@ -31,9 +23,17 @@ region = Rect2(32, 128, 32, 64)
 atlas = ExtResource("1_1s7hx")
 region = Rect2(64, 128, 32, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_s8llt"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_wro54"]
 atlas = ExtResource("1_1s7hx")
-region = Rect2(0, 128, 32, 64)
+region = Rect2(0, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6jnfr"]
+atlas = ExtResource("1_1s7hx")
+region = Rect2(32, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ivdv"]
+atlas = ExtResource("1_1s7hx")
+region = Rect2(64, 0, 32, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tmnhb"]
 animations = [{
@@ -45,27 +45,16 @@ animations = [{
 "texture": SubResource("AtlasTexture_5hvsu")
 }],
 "loop": true,
-"name": &"Deita",
-"speed": 5.0
+"name": &"laying_down",
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6jnfr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6ivdv")
-}],
-"loop": false,
-"name": &"Meio",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wro54")
+"texture": SubResource("AtlasTexture_s8llt")
 }],
 "loop": true,
-"name": &"MeioParado",
-"speed": 5.0
+"name": &"surface_idle",
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -75,16 +64,27 @@ animations = [{
 "texture": SubResource("AtlasTexture_wbiy0")
 }],
 "loop": false,
-"name": &"Pé",
-"speed": 5.0
+"name": &"surface_moving",
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_s8llt")
+"texture": SubResource("AtlasTexture_wro54")
 }],
 "loop": true,
-"name": &"PéParado",
-"speed": 5.0
+"name": &"water_idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6jnfr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ivdv")
+}],
+"loop": false,
+"name": &"water_moving",
+"speed": 4.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7yqt3"]
@@ -109,9 +109,8 @@ z_index = 1
 z_as_relative = false
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_tmnhb")
-animation = &"Meio"
-frame = 1
-frame_progress = 1.0
+animation = &"laying_down"
+autoplay = "surface_idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, 0)
@@ -133,5 +132,5 @@ shape = SubResource("CircleShape2D_n8cor")
 position = Vector2(-2, 0)
 shape = SubResource("CircleShape2D_ybk78")
 
-[connection signal="area_entered" from="Range" to="." method="_on_alcança_area_entered"]
-[connection signal="area_exited" from="Range" to="." method="_on_alcança_area_exited"]
+[connection signal="area_entered" from="Range" to="." method="_on_range_area_entered"]
+[connection signal="area_exited" from="Range" to="." method="_on_range_area_exited"]

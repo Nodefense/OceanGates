@@ -1,5 +1,5 @@
 '''
-Copyright (C) 2024 Leonardo Bandeira, Gabriel Dill
+Copyright (C) 2024 Gabriel Dill
 
 This file is part of OceanGates.
 
@@ -18,17 +18,18 @@ If not, see <https://www.gnu.org/licenses/>.
 '''
 
 extends Area2D
-@onready var animacao = $AnimatedSprite2D
+@onready var animation = $AnimatedSprite2D
 @onready var ship_interior = $"../ShipInterior"
 
-func _on_chão_body_entered(body):
-	if body.has_method("sobe") and body.collision_mask == 2:
-		body.sobe()
-		animacao.play("Dentro")
-		ship_interior.play("dentro")
+func _on_floor_body_entered(body: Node2D) -> void:
+	if body.has_method("reemerge") and body.collision_mask == 2:
+		body.reemerge()
+		animation.play("inside")
+		ship_interior.play("inside")
 
-func _on_chão_body_exited(body):
-	if body.has_method("sobe"):
-		body.sobe()
-		animacao.play("Fora")
-		ship_interior.play("fora")
+
+func _on_floor_body_exited(body: Node2D) -> void:
+	if body.has_method("reemerge"):
+		body.reemerge()
+		animation.play("outside")
+		ship_interior.play("outside")
