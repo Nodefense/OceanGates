@@ -1,4 +1,4 @@
-'''
+"""
 Copyright (C) 2024 Gabriel Dill
 
 This file is part of OceanGates.
@@ -15,7 +15,7 @@ See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with OceanGates.
 If not, see <https://www.gnu.org/licenses/>. 
-'''
+"""
 
 extends Area2D
 
