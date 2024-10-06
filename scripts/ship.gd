@@ -1,4 +1,4 @@
-'''
+"""
 Copyright (C) 2024 Gabriel Dill
 
 This file is part of OceanGates.
@@ -15,7 +15,8 @@ See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with OceanGates.
 If not, see <https://www.gnu.org/licenses/>. 
-'''
+"""
+
 
 extends Area2D
 
@@ -24,15 +25,17 @@ extends Area2D
 @onready var ship_interior: AnimatedSprite2D = $"../ShipInterior"
 
 
-func _on_floor_body_entered(body: Node2D) -> void:
-	if body.has_method("reemerge") and body.collision_mask == 2 and body.submergeable:
+# Make the player not submergeable when inside the ship
+func _on_floor_body_entered(body: CharacterBody2D) -> void:
+	if body.collision_mask == 2 and body.submergeable:
 		body.reemerge()
 		animation.play("inside")
 		ship_interior.play("inside")
 		body.submergeable = false
-		
-func _on_floor_body_exited(body: Node2D) -> void:
-	if body.has_method("reemerge") and body.collision_mask == 2 and not body.submergeable:
+
+# Make the player submergeable when outside the ship
+func _on_floor_body_exited(body: CharacterBody2D) -> void:
+	if body.collision_mask == 2 and not body.submergeable:
 		body.reemerge()
 		animation.play("outside")
 		ship_interior.play("outside")

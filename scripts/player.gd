@@ -17,11 +17,14 @@ You should have received a copy of the GNU General Public License along with Oce
 If not, see <https://www.gnu.org/licenses/>. 
 '''
 
+
 extends CharacterBody2D
+
 
 @onready var animation: AnimatedSprite2D = $AnimatedSprite2D
 @onready var water: TileMapLayer = $"../Water"
 @onready var surface: TileMapLayer = $"../Surface"
+
 
 var closed: bool = false
 var speed: int = 70
@@ -32,14 +35,14 @@ var grabbable: bool = false
 var submergeable: bool = true
 
 
-
 func _process(delta: float) -> void:  
 	water_function()
-	movimento(delta)  
+	movement(delta)  
 	velocity = direction * speed
 	move_and_slide()
 
-func movimento(delta: float) -> void:
+# Player movement
+func movement(delta: float) -> void:
 	direction = Vector2.ZERO
 	if Input.is_action_pressed("grab"):
 		closed = true
@@ -84,12 +87,14 @@ func movimento(delta: float) -> void:
 		else:
 			animation.play("water_idle")
 
+# Invert the value of water_reach
 func reemerge() -> void:
 	if water_reach:
 		water_reach = false
 	else:
 		water_reach = true
 
+# Plays water_moving animation if the player is in water
 func water_function() -> void:
 	if not water_reach:
 		speed = 70
@@ -98,11 +103,13 @@ func water_function() -> void:
 		speed = 90
 		animation.play("surface_moving")
 
+# For objects on the floor next to the player
 func _on_range_area_entered(area: Area2D) -> void:
 	if area.has_method("glow"):
 		grabbable = true
 		area.glow()
 
+# For objects on the floor next to the player
 func _on_range_area_exited(area: Area2D) -> void:
 	if area.has_method("gloom"):
 		grabbable = false
