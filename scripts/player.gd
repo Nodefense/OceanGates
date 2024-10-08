@@ -88,6 +88,7 @@ func movement(delta: float) -> void:
 			animation.play("water_idle")
 
 # Invert the value of water_reach
+# It shall be replaced by a function that gives the inverse value of any bool variable
 func reemerge() -> void:
 	if water_reach:
 		water_reach = false
