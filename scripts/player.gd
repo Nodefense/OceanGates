@@ -26,6 +26,7 @@ extends CharacterBody2D
 @onready var surface: TileMapLayer = $"../Surface"
 
 
+# Using static typing always
 var closed: bool = false
 var speed: int = 70
 var rotation_speed: float = 2.25
